@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../auth'
+import ScrollTop from './ScrollTop'
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { user, logout } = useAuth()
@@ -42,6 +43,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <footer className="footer">
         拾光志 · 雷馨怡的数字经济学习笔记 · React + Express + SQLite 全栈练习项目
       </footer>
+      <ScrollTop />
     </>
   )
 }
