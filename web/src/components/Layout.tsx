@@ -41,7 +41,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       </header>
       <main className="container">{children}</main>
       <footer className="footer">
-        拾光志 · 雷馨怡的数字经济学习笔记 · React + Express + SQLite 全栈练习项目
+        拾光志 · 把学过的东西，写成看得见的成长 · 由雷馨怡设计并迭代开发
       </footer>
       <ScrollTop />
     </>
