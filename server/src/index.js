@@ -10,6 +10,12 @@ import categoryRoutes from './routes/categories.js'
 import postRoutes from './routes/posts.js'
 import commentRoutes from './routes/comments.js'
 
+// JWT 密钥兜底：未配置环境变量时使用开发默认值（生产环境应通过 env 注入）
+if (!process.env.JWT_SECRET) {
+  process.env.JWT_SECRET = 'shiguang-blog-dev-secret'
+  console.warn('[warn] JWT_SECRET 未配置，已使用开发默认值')
+}
+
 seedIfEmpty()
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
