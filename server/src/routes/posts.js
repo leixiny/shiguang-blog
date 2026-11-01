@@ -62,7 +62,8 @@ router.get('/', async (req, res) => {
   const list = db
     .prepare(
       `SELECT p.id, p.title, p.cover, p.tags, p.views, p.created_at, p.content, p.author_id,
-              u.username AS author, c.name AS category
+              u.username AS author, c.name AS category,
+              (SELECT COUNT(*) FROM comments cm WHERE cm.post_id = p.id) AS comments_count
        FROM posts p
        JOIN users u ON u.id = p.author_id
        LEFT JOIN categories c ON c.id = p.category_id

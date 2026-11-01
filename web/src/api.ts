@@ -32,6 +32,7 @@ export interface PostListItem {
   author: string
   author_id: number
   category: string | null
+  comments_count: number
 }
 
 export interface PostDetail extends PostListItem {

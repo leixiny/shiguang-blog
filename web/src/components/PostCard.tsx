@@ -39,6 +39,7 @@ export default function PostCard({ post, onClick }: { post: PostListItem; onClic
           <span>{post.author}</span>
           <span>
             {formatDateCN(post.created_at)} · {post.views} 阅读
+            {post.comments_count > 0 && ` · ${post.comments_count} 讨论`}
           </span>
         </div>
       </div>
