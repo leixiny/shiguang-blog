@@ -17,6 +17,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             <Link to="/posts">学习笔记</Link>
             {user ? (
               <>
+                <Link to="/posts?mine=1">我的文章</Link>
                 <Link to="/write">写文章</Link>
                 <a
                   href="#"

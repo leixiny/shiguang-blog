@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { api, errMsg, type Category, type PostListItem } from '../api'
+import { useAuth } from '../auth'
 import PostCard from '../components/PostCard'
 
-// 笔记列表页：分类筛选 + 搜索 + 分页
+// 笔记列表页：分类筛选 + 搜索 + 分页 + 我的文章视图
 export default function Posts() {
   const navigate = useNavigate()
+  const { user } = useAuth()
   const [params, setParams] = useSearchParams()
   const page = Number(params.get('page') || 1)
   const categoryId = params.get('category') || ''
   const keyword = params.get('q') || ''
+  const mine = params.get('mine') === '1'
 
   const [posts, setPosts] = useState<PostListItem[]>([])
   const [total, setTotal] = useState(0)
@@ -29,7 +32,13 @@ export default function Posts() {
     const timer = setTimeout(() => {
       api
         .get<{ list: PostListItem[]; total: number; pages: number }>('/posts', {
-          params: { page, pageSize: 9, categoryId: categoryId || undefined, keyword: keyword || undefined },
+          params: {
+            page,
+            pageSize: 9,
+            categoryId: categoryId || undefined,
+            keyword: keyword || undefined,
+            mine: mine ? '1' : undefined,
+          },
         })
         .then((r) => {
           setPosts(r.data.list)
@@ -53,11 +62,30 @@ export default function Posts() {
 
   return (
     <>
-      <h2 className="page-title">学习笔记</h2>
-      <p className="page-sub">共 {total} 篇 · 按专栏筛选，或搜索关键词</p>
+      <h2 className="page-title">{mine ? '我的文章' : '学习笔记'}</h2>
+      <p className="page-sub">
+        {mine ? `我发布的 ${total} 篇 · 管理自己的内容` : `共 ${total} 篇 · 按专栏筛选，或搜索关键词`}
+      </p>
 
       <div className="filter-bar">
         <div className="chips">
+          <button
+            type="button"
+            className={`chip ${!mine ? 'active' : ''}`}
+            onClick={() => applyPatch({ mine: undefined, page: '1' })}
+          >
+            全部笔记
+          </button>
+          {user && (
+            <button
+              type="button"
+              className={`chip ${mine ? 'active' : ''}`}
+              onClick={() => applyPatch({ mine: '1', page: '1' })}
+            >
+              我的文章
+            </button>
+          )}
+          <span className="chip-divider" aria-hidden="true" />
           <button
             type="button"
             className={`chip ${categoryId === '' ? 'active' : ''}`}

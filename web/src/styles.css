@@ -172,6 +172,14 @@ input, textarea, select { font-family: inherit; }
 
 .chips { display: flex; gap: 8px; flex-wrap: wrap; }
 
+.chip-divider {
+  width: 1px;
+  height: 18px;
+  margin: 0 6px;
+  background: var(--border);
+  align-self: center;
+}
+
 .chip {
   border: 1px solid var(--border);
   background: white;
