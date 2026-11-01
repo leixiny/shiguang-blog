@@ -1,0 +1,13 @@
+# Render 部署蓝图：单服务同时提供 API 与前端静态文件
+services:
+  - type: web
+    name: shiguang-blog
+    runtime: node
+    plan: free
+    buildCommand: npm install --prefix server && npm install --prefix web && npm run build --prefix web
+    startCommand: node server/src/index.js
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: NODE_ENV
+        value: production
