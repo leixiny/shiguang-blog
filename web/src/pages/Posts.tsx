@@ -115,7 +115,29 @@ export default function Posts() {
       </div>
 
       {error && <p className="empty">{error}</p>}
-      {!error && posts.length === 0 && <p className="empty">没有找到笔记，换个关键词试试？</p>}
+      {!error && posts.length === 0 && (
+        <div className="empty-state">
+          <div className="empty-ring">✎</div>
+          <h3>{keyword ? `没有找到与「${keyword}」相关的笔记` : mine ? '还没有发布过文章' : '这个专栏还没有笔记'}</h3>
+          <p>内容会随学习持续更新，也可以从一篇新笔记开始</p>
+          <div className="empty-actions">
+            {(keyword || categoryId || mine) && (
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                onClick={() => setParams(new URLSearchParams())}
+              >
+                清除筛选条件
+              </button>
+            )}
+            {user && (
+              <button type="button" className="btn btn-primary btn-sm" onClick={() => navigate('/write')}>
+                写一篇笔记
+              </button>
+            )}
+          </div>
+        </div>
+      )}
 
       <div className="post-grid">
         {posts.map((p) => (

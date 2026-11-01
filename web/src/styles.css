@@ -313,6 +313,28 @@ input, textarea, select { font-family: inherit; }
 .pager span { color: var(--muted); font-size: 13.5px; }
 
 /* ---------- 空态 / 提示 ---------- */
+.empty-state {
+  text-align: center;
+  padding: 54px 0 42px;
+}
+
+.empty-ring {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #eaf7ff, #ffeef4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7fb6dd;
+  font-size: 30px;
+}
+
+.empty-state h3 { font-size: 18px; color: #172033; margin: 0 0 8px; }
+.empty-state p { color: var(--muted); font-size: 14px; margin: 0 0 18px; }
+.empty-actions { display: flex; gap: 10px; justify-content: center; }
+
 .empty {
   text-align: center;
   color: var(--muted);
